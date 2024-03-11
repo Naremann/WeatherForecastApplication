@@ -1,0 +1,115 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.weatherforecastapplication.ui.setting.SettingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Temperature Unit -->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:onCheckedChanged="@{(group, checkedId) -> viewModel.setTemperatureUnit(checkedId == com.example.weatherforecastapplication.R.id.radioCelsius ? `Celsius` : `Fahrenheit`)}">
+
+            <RadioButton
+                android:id="@+id/radioCelsius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/celsius_text"
+                android:checked="@{viewModel.selectedTemperatureUnit == `Celsius`}" />
+
+            <RadioButton
+                android:id="@+id/radioFahrenheit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fahrenheit"
+                android:checked="@{viewModel.selectedTemperatureUnit == `Fahrenheit`}" />
+            <RadioButton
+                android:id="@+id/radioKelvin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kelvin"
+                android:checked="@{viewModel.selectedTemperatureUnit == `Kelvin`}" />
+        </RadioGroup>
+
+        <!-- Wind Speed Unit -->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:onCheckedChanged="@{(group, checkedId) -> viewModel.setWindSpeedUnit(checkedId == com.example.weatherforecastapplication.R.id.radioMeterSec ? `meter/sec` : `miles/hour`)}">
+
+            <RadioButton
+                android:id="@+id/radioMeterSec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/meter_sec"
+                android:checked="@{viewModel.selectedWindSpeedUnit == `meter/sec`}" />
+
+            <RadioButton
+                android:id="@+id/radioMilesHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/miles_hour"
+                android:checked="@{viewModel.selectedWindSpeedUnit == `miles/hour`}" />
+        </RadioGroup>
+
+        <!-- Language Selection -->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:onCheckedChanged="@{(group, checkedId) -> viewModel.setLanguage(checkedId == com.example.weatherforecastapplication.R.id.radioEnglish ? `English` : `Arabic`)}">
+
+            <RadioButton
+                android:id="@+id/radioEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/english"
+                android:checked="@{viewModel.selectedLanguage == `English`}" />
+
+            <RadioButton
+                android:id="@+id/radioArabic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/arabic"
+                android:checked="@{viewModel.selectedLanguage == `Arabic`}" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:onCheckedChanged="@{(group, checkedId) -> viewModel.setLocationMode(checkedId == com.example.weatherforecastapplication.R.id.radioGps ? `GPS` : `Map`)}">
+
+            <RadioButton
+                android:id="@+id/radioGps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps"
+                android:onClick="@{()->viewModel.navigateToHomeFragment()}"
+                android:checked="@{viewModel.locationMode == `GPS`}" />
+
+            <RadioButton
+                android:id="@+id/radioMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/map"
+                android:onClick="@{()->viewModel.navigateToMapSelectionFragment()}"
+                android:checked="@{viewModel.locationMode == `Map`}" />
+        </RadioGroup>
+
+    </LinearLayout>
+</layout>

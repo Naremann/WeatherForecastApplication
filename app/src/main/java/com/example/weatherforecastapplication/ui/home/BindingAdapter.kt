@@ -3,10 +3,8 @@ package com.example.weatherforecastapplication.ui.home
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.weatherforecastapplication.model.DailyItem
-import com.example.weatherforecastapplication.model.convertTimestampToTime
 import com.example.weatherforecastapplication.model.convertKelvinToCelsius
-import com.example.weatherforecastapplication.model.convertTimestampToDate
-import com.example.weatherforecastapplication.model.convertTimestampToDay
+import com.example.weatherforecastapplication.model.formatTimestamp
 
 object BindingAdapters {
 
@@ -14,20 +12,20 @@ object BindingAdapters {
     @BindingAdapter("timeFromTimestamp")
     fun setTimeFromTimestamp(textView: TextView, timestamp: Int?) {
         timestamp?.let {
-            textView.text = convertTimestampToTime(it.toLong())
+            textView.text = formatTimestamp(it.toLong(),"hh:mm")
         }
     }
 
     @JvmStatic
     @BindingAdapter("dayFromTimestamp")
     fun setDayFromTimestamp(textView: TextView,timestamp: Int?){
-        textView.text= timestamp?.toLong()?.let { convertTimestampToDay(it) }
+        textView.text= timestamp?.toLong()?.let { formatTimestamp(it,"EEEE") }
     }
 
     @JvmStatic
     @BindingAdapter("dateFromTimeStamp")
     fun setDateFromTimeStamp(textView: TextView,timestamp: Int?){
-        textView.text= timestamp?.toLong()?.let { convertTimestampToDate(it) }
+        textView.text= timestamp?.toLong()?.let { formatTimestamp(it,"dd/MM") }
     }
 
 

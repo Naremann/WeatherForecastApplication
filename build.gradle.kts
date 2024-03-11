@@ -9,7 +9,10 @@ buildscript {
     dependencies {
         classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.6")
         classpath ("com.android.tools.build:gradle:7.0.0")
-        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.48")
+
+       classpath ("com.google.dagger:hilt-android-gradle-plugin:2.48")
+        classpath ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+
 
 
     }

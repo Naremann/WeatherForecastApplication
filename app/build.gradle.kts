@@ -4,6 +4,9 @@ plugins {
     kotlin("kapt")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
+
+
 
 }
 
@@ -68,22 +71,26 @@ dependencies {
     //naviagtion component
     implementation ("androidx.navigation:navigation-fragment:2.7.6")
     implementation ("androidx.navigation:navigation-ui:2.7.6")
-    //Data Binding
-  //  implementation("androidx.databinding:databinding-runtime:8.3.0")
- /* // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")*/
+
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
+
+
+
+
+
 
 
     // Kotlin Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     //location
     implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation ("com.google.android.gms:play-services-maps:17.0.1")
+
 
 }
 

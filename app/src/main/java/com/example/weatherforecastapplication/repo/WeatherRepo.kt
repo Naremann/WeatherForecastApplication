@@ -5,10 +5,10 @@ import com.example.weatherforecastapplication.model.WeatherResponse
 import javax.inject.Inject
 
 interface WeatherRepo {
-    suspend fun getWeatherForecast(lat:Double,lon:Double): WeatherResponse
+    suspend fun getWeatherForecast(lat:Double,lon:Double,lang:String): WeatherResponse
     class WeatherRepoImp @Inject constructor(private val weatherRemoteSource:WeatherRemoteSource):WeatherRepo{
-        override suspend fun getWeatherForecast(lat: Double,lon: Double): WeatherResponse {
-           return weatherRemoteSource.getWeatherForecast(lat,lon)
+        override suspend fun getWeatherForecast(lat: Double,lon: Double,lang:String): WeatherResponse {
+           return weatherRemoteSource.getWeatherForecast(lat,lon,lang)
         }
 
     }

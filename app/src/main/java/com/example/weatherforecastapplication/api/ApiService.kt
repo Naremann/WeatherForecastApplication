@@ -11,6 +11,7 @@ interface ApiService {
         suspend fun fetWeatherForecast(
             @Query("lat") latitude: Double,
             @Query("lon") longitude: Double,
-            @Query("appid") apiKey: String
+            @Query("appid") apiKey: String,
+            @Query("lang") lang:String
         ): WeatherResponse
 }

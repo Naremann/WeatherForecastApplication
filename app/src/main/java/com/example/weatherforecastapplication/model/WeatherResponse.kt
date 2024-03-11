@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.time.times
 
 data class WeatherResponse(
 
@@ -33,19 +34,49 @@ data class WeatherResponse(
 	val lat: Double? = null
 )
 
-data class FeelsLike(
+data class HourlyItem(
 
-	@field:SerializedName("eve")
-	val eve: Any? = null,
+	@field:SerializedName("temp")
+	val temp: Double? = null,
 
-	@field:SerializedName("night")
-	val night: Any? = null,
+	@field:SerializedName("visibility")
+	val visibility: Int? = null,
 
-	@field:SerializedName("day")
-	val day: Any? = null,
+	@field:SerializedName("uvi")
+	val uvi: Double? = null,
 
-	@field:SerializedName("morn")
-	val morn: Any? = null
+	@field:SerializedName("pressure")
+	val pressure: Int? = null,
+
+	@field:SerializedName("clouds")
+	val clouds: Int? = null,
+
+	@field:SerializedName("feels_like")
+	val feelsLike: Any? = null,
+
+	@field:SerializedName("wind_gust")
+	val windGust: Any? = null,
+
+	@field:SerializedName("dt")
+	val dt: Int? = null,
+
+	@field:SerializedName("pop")
+	val pop: Double? = null,
+
+	@field:SerializedName("wind_deg")
+	val windDeg: Int? = null,
+
+	@field:SerializedName("dew_point")
+	val dewPoint: Any? = null,
+
+	@field:SerializedName("weather")
+	val weather: List<WeatherItem?>? = null,
+
+	@field:SerializedName("humidity")
+	val humidity: Int? = null,
+
+	@field:SerializedName("wind_speed")
+	val windSpeed: Double? = null
 )
 
 data class Current(
@@ -69,10 +100,7 @@ data class Current(
 	val clouds: Int? = null,
 
 	@field:SerializedName("feels_like")
-	val feelsLike: Double? = null,
-
-	@field:SerializedName("wind_gust")
-	val windGust: Any? = null,
+	val feelsLike: Any? = null,
 
 	@field:SerializedName("dt")
 	val dt: Int? = null,
@@ -93,7 +121,7 @@ data class Current(
 	val humidity: Int? = null,
 
 	@field:SerializedName("wind_speed")
-	val windSpeed: Any? = null
+	val windSpeed: Double? = null
 )
 
 data class WeatherItem(
@@ -130,60 +158,6 @@ data class Temp(
 
 	@field:SerializedName("morn")
 	val morn: Any? = null
-)
-
-data class Rain(
-
-	@field:SerializedName("1h")
-	val jsonMember1h: Any? = null
-)
-
-data class HourlyItem(
-
-	@field:SerializedName("temp")
-	val temp: Double? = null,
-
-	@field:SerializedName("visibility")
-	val visibility: Int? = null,
-
-	@field:SerializedName("uvi")
-	val uvi: Double? = null,
-
-	@field:SerializedName("pressure")
-	val pressure: Int? = null,
-
-	@field:SerializedName("clouds")
-	val clouds: Int? = null,
-
-	@field:SerializedName("feels_like")
-	val feelsLike: Double? = null,
-
-	@field:SerializedName("wind_gust")
-	val windGust: Any? = null,
-
-	@field:SerializedName("dt")
-	val dt: Int? = null,
-
-	@field:SerializedName("pop")
-	val pop: Int? = null,
-
-	@field:SerializedName("wind_deg")
-	val windDeg: Int? = null,
-
-	@field:SerializedName("dew_point")
-	val dewPoint: Any? = null,
-
-	@field:SerializedName("weather")
-	val weather: List<WeatherItem?>? = null,
-
-	@field:SerializedName("humidity")
-	val humidity: Int? = null,
-
-	@field:SerializedName("wind_speed")
-	val windSpeed: Any? = null,
-
-	@field:SerializedName("rain")
-	val rain: Rain? = null
 )
 
 data class DailyItem(
@@ -228,7 +202,7 @@ data class DailyItem(
 	val dt: Int? = null,
 
 	@field:SerializedName("pop")
-	val pop: Int? = null,
+	val pop: Double? = null,
 
 	@field:SerializedName("wind_deg")
 	val windDeg: Int? = null,
@@ -246,7 +220,22 @@ data class DailyItem(
 	val humidity: Int? = null,
 
 	@field:SerializedName("wind_speed")
-	val windSpeed: Any? = null
+	val windSpeed: Double? = null
+)
+
+data class FeelsLike(
+
+	@field:SerializedName("eve")
+	val eve: Any? = null,
+
+	@field:SerializedName("night")
+	val night: Any? = null,
+
+	@field:SerializedName("day")
+	val day: Any? = null,
+
+	@field:SerializedName("morn")
+	val morn: Any? = null
 )
 
 data class MinutelyItem(
@@ -263,21 +252,44 @@ fun convertKelvinToCelsius(temp:Double):String{
 	return temp.minus(273.15).toInt().toString()
 }
 
+fun convertKelvinToFahrenheit(temp: Double):String{
+	return ((temp.minus(273.15)).times(9/5)+32).toString()
+}
+
+fun convertWindSpeedInMStoMPHunit(windSpeed:Double):String{
+	return windSpeed.times(3.6671).toString()
+}
+
+/*
 fun convertTimestampToTime(timestamp: Long): String {
 	val date = Date(timestamp * 1000)
 	val sdf = SimpleDateFormat("hh:mm", Locale.getDefault())
 	return sdf.format(date)
 }
+*/
 
-fun convertTimestampToDay(timestamp: Long):String{
-	val date=Date(timestamp * 1000)
+/*fun convertTimestampToDay(timestamp: Long):String{
+	return formatTimestamp(timestamp,"EEEE")
+
+	*//*val date=Date(timestamp * 1000)
 	val sdf=SimpleDateFormat("EEEE",Locale.getDefault())
+	return sdf.format(date)*//*
+}*/
+/*fun convertTimestampToDate(timestamp: Long):String{
+	return formatTimestamp(timestamp,"dd/MM")
+	*//*val date= Date(timestamp * 1000)
+	val sdf= SimpleDateFormat("dd/MM", Locale.getDefault())
+	return sdf.format(date)*//*
+}*/
+
+fun formatTimestamp(timestamp: Long, pattern: String):String{
+	val date=Date(timestamp * 1000)
+	val sdf=SimpleDateFormat(pattern,Locale.getDefault())
 	return sdf.format(date)
 }
-fun convertTimestampToDate(timestamp: Long):String{
-	val date=Date(timestamp * 1000)
-	val sdf=SimpleDateFormat("dd/MM",Locale.getDefault())
-	return sdf.format(date)
+ fun formatDate(date: Date, pattern: String): String {
+	val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
+	return simpleDateFormat.format(date)
 }
 fun weatherIconResourceId(iconCode: String): Int {
 	return when (iconCode) {
@@ -297,3 +309,4 @@ fun weatherIconResourceId(iconCode: String): Int {
 		else -> R.drawable.day_clear
 	}
 }
+

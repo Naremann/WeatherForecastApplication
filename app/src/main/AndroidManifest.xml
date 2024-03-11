@@ -16,7 +16,11 @@
         android:theme="@style/Theme.WeatherForecastApplication"
         tools:targetApi="31"
         android:name=".WeatherApp"
+
         >
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDyjEL6BLbT3lnOlmWEAG0vmP-MkVwkI0Q" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
