@@ -5,4 +5,9 @@
         android:icon="@drawable/settings_24"
         app:showAsAction="always"
         />
+    <item android:id="@+id/favoriteFragment" android:title="@string/favorite"
+        android:icon="@drawable/favorite"
+        />
+    <item android:id="@+id/weaherAlertsFragment" android:title="@string/alerts"
+        android:icon="@drawable/notifications"/>
 </menu>

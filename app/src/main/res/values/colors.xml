@@ -2,9 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="off_white">#72FFFFFF</color>
+    <color name="gray">#3CFFFFFF</color>
     <color name="or">#FEB054</color>
-    <color name="gray">#0A4694</color>
     <color name="background_color">#87CEEB</color>
     <color name="colorSkyClear">#87CEEB</color>
     <color name="colorSkyCloudy">#B0C4DE</color>

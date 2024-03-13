@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="locationModel"
+            type="com.example.weatherforecastapplication.data.model.WeatherDataEntity" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:strokeWidth="5dp"
+        app:strokeColor="@color/gray"
+        android:layout_margin="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{locationModel.city}"
+            tools:text="Cairo"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:layout_gravity="start"
+            android:padding="10dp"
+
+            />
+        <ImageView
+            android:id="@+id/deleteIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/remove_circle"
+            android:layout_gravity="end"
+            android:padding="10dp"
+            />
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

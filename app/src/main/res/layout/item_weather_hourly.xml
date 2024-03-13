@@ -7,7 +7,7 @@
         <import type="com.example.weatherforecastapplication.ui.home.BindingAdapters"/>
         <variable
             name="hourlyItem"
-            type="com.example.weatherforecastapplication.model.HourlyItem" />
+            type="com.example.weatherforecastapplication.data.model.HourlyItem" />
         <!--<variable
             name="binding"
             type="com.example.weatherforecastapplication.ui.home.BindingAdapters" />-->

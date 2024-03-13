@@ -1,0 +1,67 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+       <!-- <Switch
+            android:id="@+id/switchAlertType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alarm"
+            android:checked="true" />-->
+        <RadioGroup
+            android:id="@+id/radioGroupAlertType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/radioAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alarm"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Duration:"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"/>
+
+        <TimePicker
+            android:id="@+id/timePickerDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Switch
+            android:id="@+id/switchAlertEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable Alert"
+            android:checked="true"
+            android:layout_marginTop="16dp"/>
+
+        <Button
+            android:id="@+id/btnAddAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Alert"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+</layout>

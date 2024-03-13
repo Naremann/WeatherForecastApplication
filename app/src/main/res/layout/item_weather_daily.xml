@@ -8,7 +8,7 @@
 
         <variable
             name="dailyItem"
-            type="com.example.weatherforecastapplication.model.DailyItem" />
+            type="com.example.weatherforecastapplication.data.model.DailyItem" />
 
     </data>
 
