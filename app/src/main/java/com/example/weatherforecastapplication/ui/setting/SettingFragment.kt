@@ -7,14 +7,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.base.BaseFragment
 import com.example.weatherforecastapplication.databinding.FragmentSettingBinding
-import com.example.weatherforecastapplication.db.PreferenceManager
+import com.example.weatherforecastapplication.data.db.PreferenceManager
 
 
 class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>(),Navigator {
-    private lateinit var preferenceManager:PreferenceManager
+    private lateinit var preferenceManager: PreferenceManager
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.viewModel=viewModel
+        viewDataBinding.lifecycleOwner=this
         preferenceManager= PreferenceManager(requireContext())
         observeViewModel()
         viewModel.navigator=this

@@ -1,10 +1,12 @@
 package com.example.weatherforecastapplication.ui.home
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.example.weatherforecastapplication.model.DailyItem
-import com.example.weatherforecastapplication.model.convertKelvinToCelsius
-import com.example.weatherforecastapplication.model.formatTimestamp
+import com.example.weatherforecastapplication.R
+import com.example.weatherforecastapplication.data.model.DailyItem
+import com.example.weatherforecastapplication.data.model.convertKelvinToCelsius
+import com.example.weatherforecastapplication.data.model.formatTimestamp
 
 object BindingAdapters {
 
@@ -43,6 +45,19 @@ object BindingAdapters {
     @BindingAdapter("tempInCelsius")
     fun convertKelvinToCelsius(textView: TextView,temp:Double) {
         textView.text = convertKelvinToCelsius(temp)
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("weatherBackground")
+    fun setWeatherBackground(imageView: ImageView, weatherCondition: String?) {
+        val resourceId = when (weatherCondition) {
+            "clear" -> R.drawable.sunny
+            "cloudy" -> R.drawable.cloud
+            "rainy" -> R.drawable.rainy
+            else -> R.drawable.background_gradient
+        }
+        imageView.setImageResource(resourceId)
     }
 
 }

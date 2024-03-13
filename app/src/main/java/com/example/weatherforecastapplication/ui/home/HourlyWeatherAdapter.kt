@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecastapplication.databinding.ItemWeatherHourlyBinding
-import com.example.weatherforecastapplication.model.HourlyItem
+import com.example.weatherforecastapplication.data.model.HourlyItem
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

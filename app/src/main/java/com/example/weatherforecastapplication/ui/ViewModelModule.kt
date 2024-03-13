@@ -34,19 +34,9 @@ abstract class ViewModelModule {
 */
 package com.example.weatherforecastapplication.ui
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.weatherforecastapplication.repo.WeatherRemoteSource
-import com.example.weatherforecastapplication.repo.WeatherRepo
-import com.example.weatherforecastapplication.ui.home.HomeViewModel
 import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
-import javax.inject.Provider
-import javax.inject.Singleton
 
 @Module
 @InstallIn(FragmentComponent::class)

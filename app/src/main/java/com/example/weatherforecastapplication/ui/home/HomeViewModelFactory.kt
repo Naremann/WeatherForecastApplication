@@ -2,8 +2,8 @@ package com.example.weatherforecastapplication.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherforecastapplication.db.PreferenceManager
-import com.example.weatherforecastapplication.repo.WeatherRepo
+import com.example.weatherforecastapplication.data.db.PreferenceManager
+import com.example.weatherforecastapplication.data.repo.WeatherRepo
 
 
 class HomeViewModelFactory(private val repo: WeatherRepo, private val preferenceManager: PreferenceManager) : ViewModelProvider.Factory {

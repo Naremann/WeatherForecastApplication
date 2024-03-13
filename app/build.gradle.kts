@@ -63,9 +63,12 @@ dependencies {
 
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+
     //room
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
     //circleImage
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     //naviagtion component
@@ -74,10 +77,12 @@ dependencies {
 
 
     // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
+   /* implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    kapt("androidx.hilt:hilt-compiler:1.2.0")*/
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
 
 
 
@@ -92,6 +97,17 @@ dependencies {
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
 
 
+    //**
+    // For Kotlin support
+    implementation ("androidx.room:room-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+
+
+}
+kapt {
+    correctErrorTypes = true
 }
 
 

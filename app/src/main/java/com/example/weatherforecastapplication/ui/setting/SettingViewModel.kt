@@ -6,12 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecastapplication.base.BaseViewModel
-import com.example.weatherforecastapplication.db.PreferenceManager
+import com.example.weatherforecastapplication.data.db.PreferenceManager
 import com.example.weatherforecastapplication.ui.setting.Navigator
 
 class SettingViewModel(private val sharedManager: PreferenceManager): BaseViewModel<Navigator>() {
     lateinit var navigator:Navigator
-   // val context=context
     private val _selectedTemperatureUnit = MutableLiveData<String>()
     val selectedTemperatureUnit: LiveData<String>
         get() = _selectedTemperatureUnit
@@ -55,8 +54,6 @@ class SettingViewModel(private val sharedManager: PreferenceManager): BaseViewMo
     fun setLocationMode(mode: String) {
         _locationMode.value = mode
          sharedManager.saveLocationMode(mode)
-       // PreferenceManager.saveLocationMode(mode,context)
-
     }
     fun navigateToMapSelectionFragment(){
         navigator.navigateToMapSelectionFragment()
