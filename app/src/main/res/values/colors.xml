@@ -4,6 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#3CFFFFFF</color>
     <color name="or">#FEB054</color>
+    <color name="blue">#002244</color>
+    <color name="dark_blue">#010C17</color>
+    <color name="light_blue">#0C4B7F</color>
+
     <color name="background_color">#87CEEB</color>
     <color name="colorSkyClear">#87CEEB</color>
     <color name="colorSkyCloudy">#B0C4DE</color>

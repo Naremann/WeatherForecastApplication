@@ -48,16 +48,5 @@ object BindingAdapters {
     }
 
 
-    @JvmStatic
-    @BindingAdapter("weatherBackground")
-    fun setWeatherBackground(imageView: ImageView, weatherCondition: String?) {
-        val resourceId = when (weatherCondition) {
-            "clear" -> R.drawable.sunny
-            "cloudy" -> R.drawable.cloud
-            "rainy" -> R.drawable.rainy
-            else -> R.drawable.background_gradient
-        }
-        imageView.setImageResource(resourceId)
-    }
 
 }
