@@ -81,18 +81,16 @@ class MapSelectionFragment : BaseFragment<FragmentMapSelectionBinding, MapSelect
             when (resultState) {
                 is Result.Success -> {
                     hideProgressDialog()
-                  //  viewDataBinding.saveToFavProgress.visibility = View.GONE
                     showToastMsg(requireContext(), "Location is added to favorite successfully")
+                    requireActivity().supportFragmentManager.popBackStack()
                 }
 
                 is Result.Loading -> {
                     showProgressDialog()
-                    //viewDataBinding.saveToFavProgress.visibility = View.VISIBLE
                 }
 
                 is Result.Error -> {
                     hideProgressDialog()
-                  //  viewDataBinding.saveToFavProgress.visibility = View.GONE
                     showToastMsg(requireContext(), resultState.error)
                 }
 

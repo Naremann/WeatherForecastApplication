@@ -14,17 +14,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
-        app:strokeWidth="5dp"
-        app:strokeColor="@color/gray"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/blue"
         android:layout_margin="10dp"
+        android:padding="10dp"
+        android:backgroundTint="@color/light_blue"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{locationModel.city}"
-            tools:text="Cairo"
+            android:layout_marginEnd="32dp"
+            android:paddingEnd="10dp"
             android:textSize="25sp"
-            android:textColor="@color/white"
             android:layout_gravity="start"
             android:padding="10dp"
 
@@ -34,7 +36,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/remove_circle"
-            android:layout_gravity="end"
+            android:layout_gravity="end|center_vertical"
             android:padding="10dp"
             />
 

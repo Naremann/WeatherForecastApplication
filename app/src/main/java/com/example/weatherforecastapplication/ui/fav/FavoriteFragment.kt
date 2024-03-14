@@ -1,5 +1,6 @@
 package com.example.weatherforecastapplication.ui.fav
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,18 +23,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(),Navigator{
-    @Inject
-    lateinit var locationDao: LocationDao
+    /*@Inject
+    lateinit var locationDao: LocationDao*/
     private var favLocationAdapter=FavLocationAdapter()
 
-    @Inject
-    lateinit var apiService: ApiService
-  /*  private val favoriteViewModel:FavoriteViewModel by viewModels {
-        FavoriteViewModelFactory(
-            WeatherRepo.WeatherRepoImp(
-                WeatherRemoteSource.WeatherRemoteSourceImp(apiService),
-            WeatherLocalSource.WeatherLocalSourceImp(locationDao)))
-    }*/
+   /* @Inject
+    lateinit var apiService: ApiService*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
       viewDataBinding.lifecycleOwner=this
@@ -46,7 +41,10 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
     private fun initRecyclerView() {
         favLocationAdapter.onItemClickListener=object :FavLocationAdapter.OnItemClickListener{
             override fun onDeleteClick(weatherDataEntity: WeatherDataEntity) {
-                viewModel.deleteFavLocation(weatherDataEntity)
+                showAlertDialog("Are you sure want to delete?",
+                    "Yes", { dialog, which ->
+                        viewModel.deleteFavLocation(weatherDataEntity)
+                    },"Cancel")
             }
 
             override fun onItemClick(weatherDataEntity: WeatherDataEntity) {
