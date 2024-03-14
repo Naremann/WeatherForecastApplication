@@ -96,13 +96,21 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.1.0")
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
 
-
-    //**
     // For Kotlin support
     implementation ("androidx.room:room-ktx:2.6.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+
+    //test
+    testImplementation("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation ("org.hamcrest:hamcrest-all:1.3")
+
+
+
+
 
 
 }

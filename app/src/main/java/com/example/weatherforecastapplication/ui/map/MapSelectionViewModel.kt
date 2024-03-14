@@ -6,7 +6,7 @@ import com.example.weatherforecastapplication.base.BaseViewModel
 import com.example.weatherforecastapplication.data.db.PreferenceManager
 import com.example.weatherforecastapplication.data.model.getAddress
 import com.example.weatherforecastapplication.data.repo.WeatherRepo
-import com.example.weatherforecastapplication.ui.ResultState
+import com.example.weatherforecastapplication.Result
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,12 +26,13 @@ class MapSelectionViewModel @Inject constructor(val repo: WeatherRepo):BaseViewM
         _favLocation.value = Result.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val weatherData=repo.getWeatherForecast(latLng.latitude,latLng.longitude,preferenceManager.checkLanguage())
+                val weatherData=repo
+                    .getWeatherForecast(latLng.latitude,latLng.longitude,preferenceManager.checkLanguage())
                 weatherData.city= getAddress(latLng.latitude,latLng.latitude,context)
                 repo.insertLocationToFav(
                    weatherData
                     )
-                _favLocation.value=Result.Success("saved Successfully")
+                _favLocation.value= Result.Success("saved Successfully")
             } catch (ex: Exception) {
                 _favLocation.value = Result.Error(ex.localizedMessage ?: "Unknown Error")
             }
