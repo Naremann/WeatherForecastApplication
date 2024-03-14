@@ -30,6 +30,11 @@ object DatabaseModule {
     fun provideWeatherAlertDao(myDatabase: MyDatabase):WeatherAlertDao{
         return myDatabase.getWeatherAlertDao()
     }
+
+    @Provides
+    fun providePreferenceManager(@ApplicationContext appContext: Context):PreferenceManager{
+        return PreferenceManager(appContext)
+    }
 }
 
 

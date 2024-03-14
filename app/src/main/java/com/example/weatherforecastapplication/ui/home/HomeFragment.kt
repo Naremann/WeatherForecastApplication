@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.data.api.ApiService
 import com.example.weatherforecastapplication.base.BaseFragment
@@ -43,14 +44,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     private val My_LOCATION_PERMISSION_ID = 5005
     @Inject lateinit var apiService: ApiService
 
-    private val homeViewModel: HomeViewModel by viewModels {
+  /*  private val homeViewModel: HomeViewModel by viewModels {
 
         HomeViewModelFactory(
             WeatherRepo.WeatherRepoImp(
                 WeatherRemoteSource.WeatherRemoteSourceImp(apiService),
             WeatherLocalSource.WeatherLocalSourceImp(locationDao)), PreferenceManager(requireContext())
         )
-    }
+    }*/
     private val settingViewModel: SettingViewModel by viewModels {
         SettingViewModelFactory(PreferenceManager(requireContext()))
     }
@@ -79,10 +80,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewDataBinding.viewModel=viewModel
         viewDataBinding.lifecycleOwner=this
 
+        viewDataBinding.viewModel=viewModel
         observeLocationMode()
         observeViewModel()
 
@@ -219,7 +219,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     }
 
     override fun initViewModel(): HomeViewModel {
-        return homeViewModel
+        return ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {

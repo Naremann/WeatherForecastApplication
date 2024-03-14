@@ -14,4 +14,6 @@ open class BaseViewModel<N>:ViewModel() {
      protected fun updateResultState(newState: ResultState) {
           _resultState.value = newState
      }
+
+     val messageLiveData = MutableLiveData<String>()
 }

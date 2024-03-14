@@ -4,19 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.weatherforecastapplication.R
-import com.example.weatherforecastapplication.data.api.ApiService
 import com.example.weatherforecastapplication.base.BaseFragment
 import com.example.weatherforecastapplication.databinding.FragmentMapSelectionBinding
-import com.example.weatherforecastapplication.data.db.LocationDao
 import com.example.weatherforecastapplication.data.db.PreferenceManager
-import com.example.weatherforecastapplication.data.repo.WeatherRepo
-import com.example.weatherforecastapplication.data.repo.local.WeatherLocalSource
-import com.example.weatherforecastapplication.data.repo.remote.WeatherRemoteSource
-import com.example.weatherforecastapplication.ui.ResultState
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -26,69 +20,81 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MapSelectionFragment : BaseFragment<FragmentMapSelectionBinding, MapSelectionViewModel>(),OnMapReadyCallback {
-    @Inject
-    lateinit var locationDao: LocationDao
+    /*@Inject
+    lateinit var locationDao: LocationDao*/
     lateinit var navigator: Navigator
-    @Inject
-    lateinit var apiService: ApiService
-    private val mapSelectionViewModel:MapSelectionViewModel by viewModels {
-        MapSelectionVMFactory(
-            WeatherRepo.WeatherRepoImp(
-            WeatherRemoteSource.WeatherRemoteSourceImp(apiService),
-            WeatherLocalSource.WeatherLocalSourceImp(locationDao)))
-    }
+  /*  @Inject
+    lateinit var apiService: ApiService*/
     private lateinit var googleMap: GoogleMap
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeStateFlow()
+        viewDataBinding.lifecycleOwner=this
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+        checkButtonsVisibility()
 
         viewDataBinding.selectLocationButton.setOnClickListener {
-            if (::googleMap.isInitialized) {
-                val selectedLocation = googleMap.cameraPosition.target
-                navigateToHomeFragment(selectedLocation)
-                (requireActivity() as? com.example.weatherforecastapplication.ui.home.Navigator)?.onLocationSelected(selectedLocation)
-            } else {
-                Log.e(TAG, "Google Map is not initialized")
-            }
+            getSelectedLocation()
         }
         viewDataBinding.saveToFavBtn.setOnClickListener {
-            if(::googleMap.isInitialized){
-                val selectedLocation=googleMap.cameraPosition.target
-                viewModel.saveLocationToFav(selectedLocation,requireContext(), PreferenceManager(requireContext()))
-            }
+            saveSelectedLocationToFav()
+        }
+    }
+
+    private fun checkButtonsVisibility() {
+        val isFavBtnVisible=MapSelectionFragmentArgs.fromBundle(requireArguments()).isFavVisible
+        if(isFavBtnVisible) {
+            viewDataBinding.saveToFavBtn.visibility = View.VISIBLE
+            viewDataBinding.selectLocationButton.visibility=View.GONE
+        }
+    }
+
+    private fun saveSelectedLocationToFav() {
+        if(::googleMap.isInitialized){
+            val selectedLocation=googleMap.cameraPosition.target
+            viewModel.saveLocationToFav(selectedLocation,requireContext(), PreferenceManager(requireContext()))
+            observeStateFlow()
+        }
+    }
+
+
+    private fun getSelectedLocation() {
+        if (::googleMap.isInitialized) {
+            val selectedLocation = googleMap.cameraPosition.target
+            navigateToHomeFragment(selectedLocation)
+            (requireActivity() as? com.example.weatherforecastapplication.ui.home.Navigator)?.onLocationSelected(selectedLocation)
+        } else {
+            Log.e(TAG, "Google Map is not initialized")
         }
     }
 
     private fun observeStateFlow() {
-        mapSelectionViewModel.favLocation.onEach { resultState ->
+        viewModel.favLocation.onEach { resultState ->
             when (resultState) {
-                is ResultState.SuccessMsg -> {
-                    viewDataBinding.saveToFavProgress.visibility = View.GONE
+                is Result.Success -> {
+                    hideProgressDialog()
+                  //  viewDataBinding.saveToFavProgress.visibility = View.GONE
                     showToastMsg(requireContext(), "Location is added to favorite successfully")
                 }
 
-                is ResultState.Loading -> {
-                    viewDataBinding.saveToFavProgress.visibility = View.VISIBLE
+                is Result.Loading -> {
+                    showProgressDialog()
+                    //viewDataBinding.saveToFavProgress.visibility = View.VISIBLE
                 }
 
-                is ResultState.Error -> {
-                    viewDataBinding.saveToFavProgress.visibility = View.GONE
+                is Result.Error -> {
+                    hideProgressDialog()
+                  //  viewDataBinding.saveToFavProgress.visibility = View.GONE
                     showToastMsg(requireContext(), resultState.error)
                 }
 
-                else -> {
-                    viewDataBinding.saveToFavProgress.visibility = View.GONE
-                }
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -99,7 +105,7 @@ class MapSelectionFragment : BaseFragment<FragmentMapSelectionBinding, MapSelect
     }
 
     override fun initViewModel(): MapSelectionViewModel {
-        return mapSelectionViewModel
+        return ViewModelProvider(this)[MapSelectionViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {

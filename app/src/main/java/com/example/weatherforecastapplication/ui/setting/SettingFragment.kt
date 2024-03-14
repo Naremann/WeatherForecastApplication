@@ -8,6 +8,7 @@ import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.base.BaseFragment
 import com.example.weatherforecastapplication.databinding.FragmentSettingBinding
 import com.example.weatherforecastapplication.data.db.PreferenceManager
+import com.example.weatherforecastapplication.ui.fav.FavoriteFragmentDirections
 
 
 class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>(),Navigator {

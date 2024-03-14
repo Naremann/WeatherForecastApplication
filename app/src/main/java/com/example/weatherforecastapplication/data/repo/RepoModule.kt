@@ -1,19 +1,14 @@
 package com.example.weatherforecastapplication.data.repo
 
-import androidx.room.Dao
-import com.example.weatherforecastapplication.data.api.ApiService
-import com.example.weatherforecastapplication.data.db.LocationDao
-import com.example.weatherforecastapplication.data.db.MyDatabase
-import com.example.weatherforecastapplication.data.db.WeatherAlertDao
 import com.example.weatherforecastapplication.data.repo.local.WeatherAlertLocalSource
 import com.example.weatherforecastapplication.data.repo.local.WeatherAlertLocalSourceImp
 import com.example.weatherforecastapplication.data.repo.local.WeatherLocalSource
 import com.example.weatherforecastapplication.data.repo.remote.WeatherRemoteSource
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.internal.managers.ApplicationComponentManager
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 /*@Module
@@ -32,7 +27,7 @@ object RepoModule {
         return apiService?.let { WeatherRemoteSource.WeatherRemoteSourceImp(it) }
     }
 }*/
-@Module
+/*@Module
 @InstallIn(SingletonComponent::class)
 object RepoModule {
 
@@ -60,5 +55,25 @@ object RepoModule {
     fun provideWeatherAlertLocalSource(weatherAlertDao: WeatherAlertDao):WeatherAlertLocalSource{
         return WeatherAlertLocalSourceImp(weatherAlertDao)
     }
+}*/
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepoModule {
+
+    @Binds
+    abstract fun provideRemoteRepo(weatherRemoteSourceImp:WeatherRemoteSource.WeatherRemoteSourceImp): WeatherRemoteSource?
+
+   @Singleton
+    @Binds
+    abstract fun provideWeatherRepo(weatherRepoImp:WeatherRepo.WeatherRepoImp): WeatherRepo
+    @Binds
+    abstract fun provideWeatherLocalRepo(weatherLocalSource :WeatherLocalSource.WeatherLocalSourceImp):WeatherLocalSource
+
+    @Binds
+    abstract fun provideWeatherAlertRepo(weatherAlertRepo: WeatherAlertRepoImp):WeatherAlertRepo
+
+    @Binds
+    abstract fun provideWeatherAlertLocalSource(weatherAlertLocalSource: WeatherAlertLocalSourceImp):WeatherAlertLocalSource
 }
 

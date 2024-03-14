@@ -72,18 +72,18 @@ abstract class BaseFragment<DB:ViewDataBinding,VM:BaseViewModel<*>>:Fragment() {
     fun showToastMsg(context: Context,msg:String){
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show()
     }
-    private fun showProgressDialog(){
+     fun showProgressDialog(){
         progressDialog = ProgressDialog(requireContext())
         progressDialog.setMessage("Loading....")
         progressDialog.setCancelable(false)
         progressDialog.show()
     }
-    private fun hideProgressDialog(){
+     fun hideProgressDialog(){
         progressDialog.dismiss()
 
     }
 
-    private fun showAlertDialog(
+     fun showAlertDialog(
         message:String, posActionName:String?=null,
         posActionListener: DialogInterface.OnClickListener?=null,
         negActionName : String?=null,
