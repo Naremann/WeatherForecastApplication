@@ -8,7 +8,7 @@ import javax.inject.Inject
 interface WeatherAlertLocalSource {
     fun getAllWeatherAlerts(): Flow<List<WeatherAlertEntity>>
     suspend fun addWeatherAlert(alert: WeatherAlertEntity)
-    suspend fun updateWeatherAlert(alert: WeatherAlertEntity)
+    suspend fun deleteWeatherAlert(alert: WeatherAlertEntity)
 }
 class WeatherAlertLocalSourceImp @Inject constructor(private val weatherAlertDao: WeatherAlertDao):WeatherAlertLocalSource{
     override fun getAllWeatherAlerts(): Flow<List<WeatherAlertEntity>> {
@@ -19,7 +19,7 @@ class WeatherAlertLocalSourceImp @Inject constructor(private val weatherAlertDao
         weatherAlertDao.addWeatherAlert(alert)
     }
 
-    override suspend fun updateWeatherAlert(alert: WeatherAlertEntity) {
-        weatherAlertDao.updateWeatherAlert(alert)
+    override suspend fun deleteWeatherAlert(alert: WeatherAlertEntity) {
+        weatherAlertDao.deleteWeatherAlert(alert)
     }
 }

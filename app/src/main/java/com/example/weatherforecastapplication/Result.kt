@@ -1,6 +1,4 @@
-package com.example.weatherforecastapplication.ui.map
-
-import com.example.weatherforecastapplication.ui.ResultState
+package com.example.weatherforecastapplication
 
 sealed class Result {
     data class Success(val msg: String) : Result()

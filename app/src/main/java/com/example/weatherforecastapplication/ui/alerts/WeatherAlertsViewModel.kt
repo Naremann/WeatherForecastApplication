@@ -95,7 +95,7 @@ class WeatherAlertsViewModel(private val weatherAlertRepo: WeatherAlertRepo):Bas
 
     fun updateWeatherAlert(alert: WeatherAlertEntity) {
         viewModelScope.launch {
-            weatherAlertRepo.updateWeatherAlert(alert)
+            weatherAlertRepo.deleteWeatherAlert(alert)
             fetchWeatherAlerts()
         }
     }

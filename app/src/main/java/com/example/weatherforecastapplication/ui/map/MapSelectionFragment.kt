@@ -11,6 +11,7 @@ import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.base.BaseFragment
 import com.example.weatherforecastapplication.databinding.FragmentMapSelectionBinding
 import com.example.weatherforecastapplication.data.db.PreferenceManager
+import com.example.weatherforecastapplication.Result
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
