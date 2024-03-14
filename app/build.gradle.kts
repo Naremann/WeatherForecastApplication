@@ -102,11 +102,18 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
-    //test
-    testImplementation("junit:junit:4.13.2")
+    // Test dependencies
+    testImplementation ("junit:junit:4.13.2")
     testImplementation ("org.mockito:mockito-core:3.12.4")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation ("org.hamcrest:hamcrest-all:1.3")
+
+    // Android test dependencies
+    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation ("androidx.test:core:1.5.0")
+    //kotlinx-coroutines
+    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
 
 
