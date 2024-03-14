@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.weatherforecastapplication.base.BaseFragment
@@ -27,16 +28,17 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
 
     @Inject
     lateinit var apiService: ApiService
-    private val favoriteViewModel:FavoriteViewModel by viewModels {
+  /*  private val favoriteViewModel:FavoriteViewModel by viewModels {
         FavoriteViewModelFactory(
             WeatherRepo.WeatherRepoImp(
                 WeatherRemoteSource.WeatherRemoteSourceImp(apiService),
             WeatherLocalSource.WeatherLocalSourceImp(locationDao)))
-    }
+    }*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding.viewModel=favoriteViewModel
-        favoriteViewModel.navigator=this
+      viewDataBinding.lifecycleOwner=this
+        viewDataBinding.viewModel=viewModel
+        viewModel.navigator=this
         observeToViewModel()
         initRecyclerView()
     }
@@ -44,7 +46,7 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
     private fun initRecyclerView() {
         favLocationAdapter.onItemClickListener=object :FavLocationAdapter.OnItemClickListener{
             override fun onDeleteClick(weatherDataEntity: WeatherDataEntity) {
-                favoriteViewModel.deleteFavLocation(weatherDataEntity)
+                viewModel.deleteFavLocation(weatherDataEntity)
             }
 
             override fun onItemClick(weatherDataEntity: WeatherDataEntity) {
@@ -62,7 +64,7 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
 
     private fun observeToViewModel() {
         lifecycleScope.launchWhenStarted {
-            favoriteViewModel.favLocation.collect { state ->
+            viewModel.favLocation.collect { state ->
                 when (state) {
                     is ResultState.Loading -> {
                      //   binding.progressBar.visibility=View.VISIBLE
@@ -88,7 +90,7 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
     }
 
     override fun initViewModel(): FavoriteViewModel {
-        return favoriteViewModel
+        return ViewModelProvider(this)[FavoriteViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {
@@ -96,7 +98,8 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
     }
 
     override fun navigateToMapSelectionFragment() {
-        findNavController().navigate(R.id.mapSelectionFragment)
+        val action=FavoriteFragmentDirections.actionFavoriteFragmentToMapSelectionFragment(true)
+        findNavController().navigate(action)
     }
 
 }

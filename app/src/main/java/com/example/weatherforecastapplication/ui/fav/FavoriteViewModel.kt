@@ -5,12 +5,15 @@ import com.example.weatherforecastapplication.base.BaseViewModel
 import com.example.weatherforecastapplication.data.model.WeatherDataEntity
 import com.example.weatherforecastapplication.data.repo.WeatherRepo
 import com.example.weatherforecastapplication.ui.ResultState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FavoriteViewModel(val repo: WeatherRepo):BaseViewModel<Navigator>() {
+@HiltViewModel
+class FavoriteViewModel @Inject constructor(val repo: WeatherRepo):BaseViewModel<Navigator>() {
     lateinit var navigator: Navigator
     private val _favLocation= MutableStateFlow<ResultState>(ResultState.Loading)
     val favLocation:StateFlow<ResultState>

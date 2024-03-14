@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
         tools:context=".ui.MainActivity"
-        android:background="@drawable/ocean_breeze_gradient"
+        android:background="@drawable/download1"
         >
 
         <fragment

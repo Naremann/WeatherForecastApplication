@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var binding:ActivityMainBinding
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    private lateinit var viewModel: HomeViewModel // Replace with your actual ViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

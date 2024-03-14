@@ -23,8 +23,10 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
-class HomeViewModel(private val weatherRepo: WeatherRepo, private val preferenceManager: PreferenceManager) : BaseViewModel<Navigator>() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val weatherRepo: WeatherRepo, private val preferenceManager: PreferenceManager) : BaseViewModel<Navigator>() {
     var currentWeather: Current? = null
     var currentDate: String? = null
     var currentTime: String? = null
