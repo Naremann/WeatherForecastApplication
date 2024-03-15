@@ -7,6 +7,7 @@
     <color name="blue">#002244</color>
     <color name="dark_blue">#010C17</color>
     <color name="light_blue">#0C4B7F</color>
+    <!--  <color name="light_blue">#3C0753</color>-->
 
     <color name="background_color">#87CEEB</color>
     <color name="colorSkyClear">#87CEEB</color>
