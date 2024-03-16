@@ -61,19 +61,19 @@ class FavoriteFragment :BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
     }
 
     private fun observeToViewModel() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.favLocation.collect { state ->
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.favLocation.collect { state: ResultState<List<WeatherDataEntity>?> ->
                 when (state) {
                     is ResultState.Loading -> {
                      //   binding.progressBar.visibility=View.VISIBLE
                     }
                     is ResultState.Success -> {
                        // binding.progressBar.visibility = View.GONE
-                        favLocationAdapter.submitList(state.locationModel)
+                        favLocationAdapter.submitList(state.data)
                     }
                     is ResultState.Error -> {
                         //binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), state.error, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
 
 

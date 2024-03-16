@@ -15,8 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(val repo: WeatherRepo):BaseViewModel<Navigator>() {
     lateinit var navigator: Navigator
-    private val _favLocation= MutableStateFlow<ResultState>(ResultState.Loading)
-    val favLocation:StateFlow<ResultState>
+    private val _favLocation= MutableStateFlow<ResultState<List<WeatherDataEntity>>>(ResultState.Loading)
+    val favLocation:StateFlow<ResultState<List<WeatherDataEntity>>>
         get() =_favLocation
 
     init {

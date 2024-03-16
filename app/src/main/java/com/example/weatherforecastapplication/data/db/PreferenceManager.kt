@@ -2,9 +2,12 @@ package com.example.weatherforecastapplication.data.db
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.weatherforecastapplication.data.model.convertKelvinToCelsius
 import com.example.weatherforecastapplication.data.model.convertKelvinToFahrenheit
 import com.example.weatherforecastapplication.data.model.convertWindSpeedInMStoMPHunit
+import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 
 class PreferenceManager (context: Context){
    companion object{
@@ -13,15 +16,27 @@ class PreferenceManager (context: Context){
        private const val LANGUAGE="language"
        private const val TEMP_UNIT="tempUnit"
        private const val  WIND_SPEED="windSpeed"
+       private const val LAT_LNG="latLng"
 
 
    }
+    private val gson = Gson()
+
 
     private val sharedPreferences=context.getSharedPreferences(
         PREF_NAME,
         Context.MODE_PRIVATE
     )
 
+    fun saveLatLng(latLng: LatLng) {
+        val json = gson.toJson(latLng)
+        sharedPreferences.edit().putString(LAT_LNG, json).apply()
+    }
+
+    fun getLatLng(): LatLng? {
+        val json = sharedPreferences.getString(LAT_LNG, null)
+        return gson.fromJson(json, LatLng::class.java)
+    }
 
     fun saveLanguage(lang:String){
         sharedPreferences.edit().putString(LANGUAGE,lang).apply()
@@ -37,11 +52,11 @@ class PreferenceManager (context: Context){
         return sharedPreferences.getString(TEMP_UNIT,"Celsius") ?: "Celsius"
     }
 
-    fun saveWindSpeed(lang:String){
-        sharedPreferences.edit().putString(WIND_SPEED,lang).apply()
+    fun saveWindSpeed(windSpeed:String){
+        sharedPreferences.edit().putString(WIND_SPEED,windSpeed).apply()
     }
     fun getWindSpeed():String{
-        return sharedPreferences.getString(WIND_SPEED,"Meter/Sec") ?: "Meter/Sec"
+        return sharedPreferences.getString(WIND_SPEED,"meter/sec") ?: "meter/sec"
     }
 
     fun saveLocationMode(mode: String) {
@@ -61,17 +76,17 @@ class PreferenceManager (context: Context){
     }
 
      fun setTempBasedOnUnit(temp:Double):String{
-        return if(getTempUnit()=="Celsius")
-            convertKelvinToCelsius(temp)
-        else if(getTempUnit()=="Fahrenheit)")
-            convertKelvinToFahrenheit(temp)
-        else
-            temp.toString()
+         return when (getTempUnit()) {
+             "Celsius" -> convertKelvinToCelsius(temp)+" °C"
+             "Fahrenheit" -> convertKelvinToFahrenheit(temp)+" °F"
+             else ->  String.format("%.2f", temp)+" K"
+         }
 
     }
 
      fun setWindSpeedBasedOnUnit(windSpeed:Double):String{
         return if(getWindSpeed()=="Meter/Sec")
+
             convertWindSpeedInMStoMPHunit(windSpeed)
         else
             windSpeed.toString()

@@ -14,12 +14,13 @@ data class WeatherDataEntity(
     var city: String?,
     var temp: String?,
     val description:String?,
-    val windSpeed: String?,
+    var windSpeed: String?,
     val humidity: String?,
     val feelsLike: String?,
     val pressure: String?,
     val clouds: String?,
     val iconCode: String?,
     val hourlyWeather: List<HourlyItem?>?,
-    val dailyWeather: List<DailyItem?>?
+    val dailyWeather: List<DailyItem?>?,
+    var isLastLocation:Boolean=false
 ):Serializable

@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.weatherforecastapplication.ui.ResultState
 import kotlinx.coroutines.flow.onEach
 
@@ -36,7 +38,14 @@ abstract class BaseFragment<DB:ViewDataBinding,VM:BaseViewModel<*>>:Fragment() {
     }
 
     fun observeToLiveData(){
-        viewModel.resultState.onEach { resultState ->
+        viewModel.messageLiveData.observe(viewLifecycleOwner, Observer {
+            Log.e("TAG", "observeToLiveData: $it")
+            if (it==true)
+                showProgressDialog()
+            else
+                hideProgressDialog()
+        })
+        /*viewModel.resultState.onEach { resultState ->
             when (resultState) {
                 is ResultState.SuccessMsg-> {
                     showToastMsg(requireContext(),resultState.msg)
@@ -54,7 +63,7 @@ abstract class BaseFragment<DB:ViewDataBinding,VM:BaseViewModel<*>>:Fragment() {
 
                 else -> {}
             }
-        }
+        }*/
 
         /*   viewModel.messageLiveData.observe(viewLifecycleOwner) { msg ->
                showAlertDialog(msg, "Ok")

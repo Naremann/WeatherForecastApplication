@@ -15,9 +15,6 @@
             android:name="selectedLocation"
             app:argType="com.google.android.gms.maps.model.LatLng" />
         <action
-            android:id="@+id/action_homeFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
         <action
@@ -32,6 +29,9 @@
         <action
             android:id="@+id/action_settingFragment_to_mapSelectionFragment"
             app:destination="@id/mapSelectionFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapSelectionFragment"

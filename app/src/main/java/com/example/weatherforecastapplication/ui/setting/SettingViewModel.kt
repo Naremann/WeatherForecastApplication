@@ -1,3 +1,4 @@
+/*
 package com.example.weatherforecastapplication.ui.setting
 
 import android.content.Context
@@ -8,8 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherforecastapplication.base.BaseViewModel
 import com.example.weatherforecastapplication.data.db.PreferenceManager
 import com.example.weatherforecastapplication.ui.setting.Navigator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SettingViewModel(private val sharedManager: PreferenceManager): BaseViewModel<Navigator>() {
+@HiltViewModel
+class SettingViewModel @Inject constructor(private val sharedManager: PreferenceManager): BaseViewModel<Navigator>() {
     lateinit var navigator:Navigator
     private val _selectedTemperatureUnit = MutableLiveData<String>()
     val selectedTemperatureUnit: LiveData<String>
@@ -61,4 +65,45 @@ class SettingViewModel(private val sharedManager: PreferenceManager): BaseViewMo
     fun navigateToHomeFragment(){
         navigator.navigateToHomeFragment()
     }
+}*/
+
+package com.example.weatherforecastapplication.ui.setting
+
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.lifecycle.viewModelScope
+import com.example.weatherforecastapplication.base.BaseViewModel
+import com.example.weatherforecastapplication.data.db.PreferenceManager
+import com.example.weatherforecastapplication.ui.setting.Navigator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
+
+@HiltViewModel
+class SettingViewModel @Inject constructor(private val sharedManager: PreferenceManager) : BaseViewModel<Navigator>() {
+    lateinit var navigator: Navigator
+
+    fun setTemperatureUnit(tempUnit: String) {
+            sharedManager.saveTempUnit(tempUnit)
+    }
+
+    fun setWindSpeedUnit(unit: String) {
+        sharedManager.saveWindSpeed(unit)
+    }
+
+    fun setLanguage(language: String) {
+        sharedManager.saveLanguage(language)
+    }
+
+    fun setLocationMode(mode: String) {
+        sharedManager.saveLocationMode(mode)
+    }
+
+    fun navigateToMapSelectionFragment() {
+        navigator.navigateToMapSelectionFragment()
+    }
+
+
 }
+
