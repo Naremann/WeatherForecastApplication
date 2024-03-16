@@ -24,6 +24,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:menu="@menu/menu"
+            android:background="@drawable/gradient_overlay"
             app:headerLayout="@layout/header_navigation_drawer" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

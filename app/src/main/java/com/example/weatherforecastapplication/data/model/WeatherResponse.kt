@@ -255,7 +255,7 @@ fun convertKelvinToCelsius(temp:Double):String{
 }
 
 fun convertKelvinToFahrenheit(temp: Double):String{
-	return ((temp.minus(273.15)).times(9/5)+32).toString()
+	return String.format("%.2f",((temp - 273.15) * 9/5 + 32))
 }
 
 fun convertWindSpeedInMStoMPHunit(windSpeed:Double):String{

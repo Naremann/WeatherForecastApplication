@@ -6,14 +6,14 @@ import com.example.weatherforecastapplication.data.db.PreferenceManager
 import com.example.weatherforecastapplication.data.repo.WeatherRepo
 
 
-class HomeViewModelFactory(private val repo: WeatherRepo, private val preferenceManager: PreferenceManager) : ViewModelProvider.Factory {
+/*class HomeViewModelFactory(private val repo: WeatherRepo, private val preferenceManager: PreferenceManager) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(repo,preferenceManager) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/
 
 /*import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

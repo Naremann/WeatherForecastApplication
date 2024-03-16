@@ -1,22 +1,17 @@
 package com.example.weatherforecastapplication.ui.home
 
 import android.content.Context
-import android.location.Geocoder
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecastapplication.base.BaseViewModel
 import com.example.weatherforecastapplication.data.db.PreferenceManager
-import com.example.weatherforecastapplication.data.model.Current
 import com.example.weatherforecastapplication.data.model.WeatherDataEntity
-import com.example.weatherforecastapplication.data.model.WeatherResponse
-import com.example.weatherforecastapplication.data.repo.WeatherRepo
 import com.example.weatherforecastapplication.data.model.formatDate
-import com.example.weatherforecastapplication.data.model.getAddress
+import com.example.weatherforecastapplication.data.repo.WeatherRepo
 import com.example.weatherforecastapplication.ui.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -26,45 +21,55 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val weatherRepo: WeatherRepo, private val preferenceManager: PreferenceManager) : BaseViewModel<Navigator>() {
-    var currentWeather: Current? = null
+class HomeViewModel @Inject constructor(
+    private val weatherRepo: WeatherRepo,
+    private val preferenceManager: PreferenceManager,
+) : BaseViewModel<Navigator>() {
     var currentDate: String? = null
     var currentTime: String? = null
-   // private var _weatherData=MutableLiveData<WeatherDataEntity>()
-   private val _weatherDataStateFlow = MutableStateFlow<ResultState>(ResultState.Loading)
-    val weatherDataStateFlow: StateFlow<ResultState>
+    var weatherData: WeatherDataEntity? = null
+    private val _weatherDataStateFlow = MutableStateFlow<ResultState<WeatherDataEntity>>(ResultState.Loading)
+    val weatherDataStateFlow: StateFlow<ResultState<WeatherDataEntity>>
         get() = _weatherDataStateFlow
 
-    var weatherData: WeatherDataEntity? = null
 
     init {
         setCurrentDateAndTime()
     }
 
-    fun getWeatherData(latitude: Double, longitude: Double, context: Context) {
-        _weatherDataStateFlow.value = ResultState.Loading
-        viewModelScope.launch {
+    fun getWeatherData(latitude: Double, longitude: Double) {
+       _weatherDataStateFlow.value = ResultState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val language: String = preferenceManager.checkLanguage()
-                val weatherDataEntity = weatherRepo.getWeatherForecast(latitude, longitude, language)
-
-                // Modify the weatherData property
+                val weatherDataEntity =
+                    weatherRepo.getWeatherForecast(latitude, longitude, language)
                 weatherData = weatherDataEntity
 
-                // Update the StateFlow with Success
-                _weatherDataStateFlow.value = ResultState.Success(listOf(weatherDataEntity))
-
-                // Update the temp based on unit
+                _weatherDataStateFlow.value = ResultState.Success(weatherDataEntity)
                 weatherDataEntity.temp = weatherDataEntity.temp?.let { temp ->
                     preferenceManager.setTempBasedOnUnit(temp.toDouble())
                 }
+                    weatherDataEntity.windSpeed = weatherData?.windSpeed?.toDouble()
+                        ?.let { preferenceManager.setWindSpeedBasedOnUnit(it) }
+//                    weatherData = weatherDataEntity
+                    Log.e("TAG", "getWeatherData: " + weatherData?.city)
+                saveLatestLocation(weatherDataEntity)
 
-                // Update the city
-                weatherDataEntity.city = getAddress(latitude, longitude, context)
-            }  catch (e: Exception) {
-                //updateResultState(ResultState.Error(e.localizedMessage ?: "Unknown error"))
-                _weatherDataStateFlow.value=ResultState.Error(e.localizedMessage ?: "Unknown error")
-               // Log.e("HomeViewModel", "getWeatherData: ${e.localizedMessage}")
+            } catch (e: Exception) {
+                _weatherDataStateFlow.value =
+                    ResultState.Error(e.localizedMessage ?: "Unknown error")
+            }
+        }
+    }
+
+    private fun saveLatestLocation(weatherDataEntity: WeatherDataEntity) {
+        viewModelScope.launch {
+            try {
+                weatherRepo.saveLatestLocationData(weatherDataEntity)
+
+            }catch (ex:Exception){
+                Log.e("TAG", "saveLatestLocation: "+ex.localizedMessage)
             }
         }
     }
@@ -77,4 +82,56 @@ class HomeViewModel @Inject constructor(private val weatherRepo: WeatherRepo, pr
 
 
 }
+
+
+/*package com.example.weatherforecastapplication.ui.home
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weatherforecastapplication.base.BaseViewModel
+import com.example.weatherforecastapplication.data.model.WeatherDataEntity
+import com.example.weatherforecastapplication.data.repo.WeatherRepo
+import com.example.weatherforecastapplication.ui.ResultState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val repository: WeatherRepo) : BaseViewModel<Navigator>() {
+
+    private val _weatherDataStateFlow: MutableLiveData<ResultState<WeatherDataEntity?>> =
+        MutableLiveData(ResultState.Loading)
+    val weatherDataStateFlow: LiveData<ResultState<WeatherDataEntity?>>
+        get() = _weatherDataStateFlow
+
+    private val _currentDate = MutableLiveData<String>()
+    val currentDate: LiveData<String>
+        get() = _currentDate
+
+    private val _currentTime = MutableLiveData<String>()
+    val currentTime: LiveData<String>
+        get() = _currentTime
+
+    var weatherData: WeatherDataEntity? = null
+
+    fun getWeatherData(lat: Double, lon: Double) {
+        viewModelScope.launch {
+            _weatherDataStateFlow.value = ResultState.Loading
+            try {
+                weatherData = repository.getWeatherForecast(lat, lon, "en")
+                _weatherDataStateFlow.value = ResultState.Success(weatherData)
+            } catch (e: Exception) {
+                _weatherDataStateFlow.value = ResultState.Error("Failed to get weather data.")
+            }
+        }
+    }
+
+}*/
+
+
 

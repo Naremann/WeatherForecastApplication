@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.weatherData.temp}"
-                android:textSize="90sp"
+                android:textSize="70sp"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/city"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,13 +72,13 @@
                     android:layout_marginEnd="8dp"/>
 
                 <ImageView
+                    android:id="@+id/icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@{viewModel.currentWeather.weather.get(0).icon}"
-                    android:layout_marginTop="8dp"/>
+                    app:drawableImg="@{viewModel.weatherData.iconCode}"
+                   />
             </LinearLayout>
 
-            <!-- Current Date and Time -->
             <TextView
                 android:id="@+id/current_date"
                 android:layout_width="wrap_content"
@@ -101,6 +101,15 @@
                 app:layout_constraintTop_toBottomOf="@id/current_date"
                 app:layout_constraintStart_toStartOf="@id/current_date"
                 android:layout_marginTop="8dp"/>
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/time"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="16dp"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -111,11 +120,19 @@
                 android:padding="8dp"
                 android:layout_marginTop="16dp"
                 app:itemSpacing="4dp"
-                app:layout_constraintTop_toBottomOf="@id/time"
+                app:layout_constraintTop_toBottomOf="@id/view1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- Daily Weather RecyclerView -->
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="16dp"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dailyRecyclerView"
                 android:layout_width="match_parent"
@@ -123,7 +140,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/view2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -133,7 +150,7 @@
                 app:layout_constraintTop_toBottomOf="@id/dailyRecyclerView"
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="20dp"
-
+                android:backgroundTint="@color/light_blue"
                 app:cardCornerRadius="10dp">
 
                 <GridLayout
@@ -143,7 +160,6 @@
                     android:rowCount="2"
                     android:columnCount="3"
                     android:padding="32dp"
-
                     >
 
                     <LinearLayout
@@ -168,9 +184,9 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/humidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(viewModel.weatherData.humidity) + ` %`}"
                             android:textSize="14sp"
                             android:textColor="@color/black"/>
                     </LinearLayout>
@@ -198,9 +214,9 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/feels_like"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(viewModel.weatherData.feelsLike)}"
                             android:textSize="14sp"
                             android:textColor="@color/black"/>
                     </LinearLayout>
@@ -226,9 +242,9 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/wind_speed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(viewModel.weatherData.windSpeed)}"
                             android:textSize="14sp"
                             android:textColor="@color/black"/>
                     </LinearLayout>
@@ -255,9 +271,9 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/pressure"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(viewModel.weatherData.pressure) + ` hpa`}"
                             android:textSize="14sp"
                             android:textColor="@color/black"/>
                     </LinearLayout>
@@ -285,9 +301,9 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/clouds"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(viewModel.weatherData.clouds) + ` %`}"
                             android:textSize="14sp"
                             android:textColor="@color/black"/>
                     </LinearLayout>

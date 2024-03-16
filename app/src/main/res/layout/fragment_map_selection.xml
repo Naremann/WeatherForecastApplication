@@ -12,16 +12,26 @@
             class="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHeight_percent=".9"
 
+            />
+
+        <com.google.android.material.internal.BaselineLayout
+            android:id="@+id/baseline"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent=".2"
+            android:orientation="horizontal"
             />
         <Button
             android:id="@+id/selectLocationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/baseline"
             app:layout_constraintTop_toBottomOf="@id/mapView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mapView"
+            app:layout_constraintTop_toTopOf="@id/baseline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"

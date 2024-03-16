@@ -7,12 +7,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-       <!-- <Switch
-            android:id="@+id/switchAlertType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alarm"
-            android:checked="true" />-->
         <RadioGroup
             android:id="@+id/radioGroupAlertType"
             android:layout_width="wrap_content"
@@ -24,21 +18,21 @@
                 android:id="@+id/radioAlarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alarm"
+                android:text="@string/alarm"
                 android:checked="true" />
 
             <RadioButton
                 android:id="@+id/radioNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notification" />
+                android:text="@string/notification" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Duration:"
+            android:text="@string/select_duration"
             android:textSize="16sp"
             android:layout_marginTop="16dp"/>
 
@@ -51,7 +45,7 @@
             android:id="@+id/switchAlertEnabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enable Alert"
+            android:text="@string/enable_alert"
             android:checked="true"
             android:layout_marginTop="16dp"/>
 
@@ -59,7 +53,7 @@
             android:id="@+id/btnAddAlert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Alert"
+            android:text="@string/add_alert"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"/>
 

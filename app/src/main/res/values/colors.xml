@@ -25,4 +25,5 @@
 
     <!-- CardView Colors -->
     <color name="colorCardBackground">#FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
