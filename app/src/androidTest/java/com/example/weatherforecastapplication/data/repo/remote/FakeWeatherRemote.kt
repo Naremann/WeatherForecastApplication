@@ -4,7 +4,7 @@ import com.example.weatherforecastapplication.data.model.Current
 import com.example.weatherforecastapplication.data.model.WeatherItem
 import com.example.weatherforecastapplication.data.model.WeatherResponse
 
-class FakeWeatherRemote:WeatherRemoteSource {
+class FakeWeatherRemote: WeatherRemoteSource {
     override suspend fun getWeatherForecast(
         lat: Double,
         lon: Double,
