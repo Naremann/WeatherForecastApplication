@@ -2,4 +2,28 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#3CFFFFFF</color>
+    <color name="or">#FEB054</color>
+    <color name="blue">#002244</color>
+    <color name="dark_blue">#010C17</color>
+    <color name="light_blue">#0C4B7F</color>
+    <!--  <color name="light_blue">#3C0753</color>-->
+
+    <color name="background_color">#87CEEB</color>
+    <color name="colorSkyClear">#87CEEB</color>
+    <color name="colorSkyCloudy">#B0C4DE</color>
+    <color name="colorSkyRainy">#708090</color>
+    <color name="colorSkyThunderstorm">#4682B4</color>
+
+    <!-- Text Colors -->
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#808080</color>
+
+    <!-- Button Colors -->
+    <color name="colorButtonPrimary">#FFA500</color>
+    <color name="colorButtonSecondary">#FF6347</color>
+
+    <!-- CardView Colors -->
+    <color name="colorCardBackground">#FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
