@@ -1,35 +1,30 @@
 package com.example.weatherforecastapplication.data.repo
 
-import android.service.autofill.FieldClassification.Match
-import com.example.weatherforecastapplication.data.model.DailyItem
+import android.app.Application
+import androidx.test.core.app.ApplicationProvider
 import com.example.weatherforecastapplication.data.model.WeatherDataEntity
 import com.example.weatherforecastapplication.data.repo.local.FakeWeatherLocal
 import com.example.weatherforecastapplication.data.repo.remote.FakeWeatherRemote
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.Matcher
-import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Matchers
-import org.mockito.internal.matchers.Matches
-import java.util.Optional.empty
 
 class WeatherRepoTest {
 
-    private lateinit var weatherRepo:WeatherRepo
+    private lateinit var weatherRepo: WeatherRepo
     private lateinit var weatherRemoteSource: FakeWeatherRemote
     private lateinit var weatherLocalSource: FakeWeatherLocal
 
     @Before
     fun setUp(){
+        val app=ApplicationProvider.getApplicationContext() as Application
         weatherLocalSource= FakeWeatherLocal()
         weatherRemoteSource= FakeWeatherRemote()
-        weatherRepo=WeatherRepo.WeatherRepoImp(weatherRemoteSource,weatherLocalSource)
+        weatherRepo= WeatherRepo.WeatherRepoImp(weatherRemoteSource, weatherLocalSource, app)
     }
 
     @Test fun insertLocationToFav_WeatherItem_sizeIsOne()= runBlocking{

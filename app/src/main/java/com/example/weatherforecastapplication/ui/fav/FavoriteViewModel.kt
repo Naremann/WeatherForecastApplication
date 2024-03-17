@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,16 +36,17 @@ class FavoriteViewModel @Inject constructor(val repo: WeatherRepo):BaseViewModel
         }
     }
 
-    private fun getFavLocations(){
+     fun getFavLocations(){
+        _favLocation.value = ResultState.Loading
+
         viewModelScope.launch(Dispatchers.IO) {
-            _favLocation.value = ResultState.Loading
-            try {
-                repo.getAllFavLocations().collect { favProducts ->
+                repo.getAllFavLocations().catch {
+                    _favLocation.value = ResultState.Error(it.localizedMessage ?: "Unknown error")
+
+                }.collect { favProducts ->
                     _favLocation.value = ResultState.Success(favProducts)
                 }
-            } catch (ex: Exception) {
-                _favLocation.value = ResultState.Error(ex.localizedMessage ?: "Unknown error")
-            }
+
         }
     }
 

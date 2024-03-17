@@ -1,11 +1,23 @@
 package com.example.weatherforecastapplication.data.repo
 
-import androidx.lifecycle.MutableLiveData
 import com.example.weatherforecastapplication.data.model.WeatherDataEntity
+import com.example.weatherforecastapplication.ui.ResultState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.Exception
 
-class FakeWeatherRepo:WeatherRepo {
+class FakeWeatherRepo: WeatherRepo {
+    private var shouldError: Boolean = false
+    private var shouldGetError: Boolean = false
+
+    fun simulateGetError(shouldGetError: Boolean) {
+        this.shouldGetError = shouldGetError
+    }
+
+
+    fun simulateError(shouldError: Boolean) {
+        this.shouldError = shouldError
+    }
 
     private val fakeWeatherList = mutableListOf<WeatherDataEntity>()
 
@@ -15,11 +27,18 @@ class FakeWeatherRepo:WeatherRepo {
 
     override fun getAllFavLocations(): Flow<List<WeatherDataEntity>> {
         return flow {
-            emit(fakeWeatherList)
+            if (shouldGetError) {
+                throw Exception("Fetch error")
+            } else {
+                emit(fakeWeatherList)
+            }
         }
     }
 
     override suspend fun deleteLocationFromFav(weatherDataEntity: WeatherDataEntity) {
+        if(shouldError){
+            throw Exception("Deletion Failed!")
+        }
         fakeWeatherList.remove(weatherDataEntity)
     }
 
@@ -41,5 +60,10 @@ class FakeWeatherRepo:WeatherRepo {
             dailyWeather = emptyList(),
             description = "Clear Sky"
         )
+    }
+
+    override suspend fun saveLatestLocationData(weatherDataEntity: WeatherDataEntity) {
+        weatherDataEntity.isLastLocation=true
+        fakeWeatherList.add(weatherDataEntity)
     }
 }
